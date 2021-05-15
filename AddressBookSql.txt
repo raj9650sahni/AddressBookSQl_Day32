@@ -1,0 +1,187 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| addressbookservice |
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| pets               |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.06 sec)
+
+
+mysql> USE addressbookservice;
+Database changed
+
+
+mysql> select database();
++--------------------+
+| database()         |
++--------------------+
+| addressbookservice |
++--------------------+
+1 row in set (0.00 sec)
+
+
+mysql>  CREATE TABLE AddressBook
+    -> ( Id INT unsigned NOT NULL AUTO_INCREMENT,
+    -> First_Name VARCHAR(15) NOT NULL,
+    -> Last_Name VARCHAR(15) NOT NULL,
+    ->  Address VARCHAR(150) NOT NULL,
+    ->  City VARCHAR(15) NOT NULL,
+    ->  State VARCHAR(15) NOT NULL,
+    ->  Zip BIGINT NOT NULL,
+    -> Phone_Number BIGINT NOT NULL,
+    -> Email VARCHAR(150) NOT NULL,
+    -> PRIMARY KEY(Id));
+Query OK, 0 rows affected (0.56 sec)
+
+
+mysql> DESCRIBE AddressBook;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| Id           | int unsigned | NO   | PRI | NULL    | auto_increment |
+| First_Name   | varchar(15)  | NO   |     | NULL    |                |
+| Last_Name    | varchar(15)  | NO   |     | NULL    |                |
+| Address      | varchar(150) | NO   |     | NULL    |                |
+| City         | varchar(15)  | NO   |     | NULL    |                |
+| State        | varchar(15)  | NO   |     | NULL    |                |
+| Zip          | bigint       | NO   |     | NULL    |                |
+| Phone_Number | bigint       | NO   |     | NULL    |                |
+| Email        | varchar(150) | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> INSERT INTO AddressBook(First_Name,Last_Name,Address,City,State,Zip,Phone_Number,Email) VALUES
+    -> ('Raj','Sahni','Nihal Vihar','New Delhi','Delhi',110041,9865658998,'rajsahni845@gmail.com'),
+    ->  ('Sumit','Ahuja','Nihal Vihar','New Delhi','Delhi',110041,8865558998,'sumitahuja6845@gmail.com'),
+    ->  ('SHivam','Mishra','Nihal Vihar','Karnataka','Banglore',110041,8965658788,'shivammishra75@gmail.com');
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM AddressBook;
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+| Id | First_Name | Last_Name | Address     | City      | State    | Zip    | Phone_Number | Email                    |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi    | 110041 |   9865658998 | rajsahni845@gmail.com    |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi    | 110041 |   8865558998 | sumitahuja6845@gmail.com |
+|  3 | SHivam     | Mishra    | Nihal Vihar | Karnataka | Banglore | 110041 |   8965658788 | shivammishra75@gmail.com |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+3 rows in set (0.07 sec)
+
+mysql>  SELECT * FROM AddressBook
+    -> WHERE City = 'Delhi';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM AddressBook;
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+| Id | First_Name | Last_Name | Address     | City      | State    | Zip    | Phone_Number | Email                    |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi    | 110041 |   9865658998 | rajsahni845@gmail.com    |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi    | 110041 |   8865558998 | sumitahuja6845@gmail.com |
+|  3 | SHivam     | Mishra    | Nihal Vihar | Karnataka | Banglore | 110041 |   8965658788 | shivammishra75@gmail.com |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+mysql> select * from AddressBook
+    -> WHERE city = 'New Delhi';
++----+------------+-----------+-------------+-----------+-------+--------+--------------+--------------------------+
+| Id | First_Name | Last_Name | Address     | City      | State | Zip    | Phone_Number | Email                    |
++----+------------+-----------+-------------+-----------+-------+--------+--------------+--------------------------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi | 110041 |   9865658998 | rajsahni845@gmail.com    |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi | 110041 |   8865558998 | sumitahuja6845@gmail.com |
++----+------------+-----------+-------------+-----------+-------+--------+--------------+--------------------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> ALTER TABLE AddressBook
+    -> ADD Relation VARCHAR(15) AFTER Email;
+Query OK, 0 rows affected (1.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM AddressBook;
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+| Id | First_Name | Last_Name | Address     | City      | State    | Zip    | Phone_Number | Email                    | Relation |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi    | 110041 |   9865658998 | rajsahni845@gmail.com    | NULL     |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi    | 110041 |   8865558998 | sumitahuja6845@gmail.com | NULL     |
+|  3 | SHivam     | Mishra    | Nihal Vihar | Karnataka | Banglore | 110041 |   8965658788 | shivammishra75@gmail.com | NULL     |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+3 rows in set (0.02 sec)
+
+
+
+
+mysql> UPDATE AddressBook
+    -> SET Relation = 'Self'
+    -> WHERE First_Name = 'Raj';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE AddressBook
+    -> SET Relation = 'Friend'
+    ->  WHERE First_Name = 'Sumit';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE AddressBook
+    -> SET Relation = 'Friend'
+    -> WHERE First_Name = 'SHivam'OR Last_Name = 'Mishra';
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+
+mysql> SELECT * FROM AddressBook;
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+| Id | First_Name | Last_Name | Address     | City      | State    | Zip    | Phone_Number | Email                    | Relation |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi    | 110041 |   9865658998 | rajsahni845@gmail.com    | Self     |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi    | 110041 |   8865558998 | sumitahuja6845@gmail.com | Friend   |
+|  3 | SHivam     | Mishra    | Nihal Vihar | Karnataka | Banglore | 110041 |   8965658788 | shivammishra75@gmail.com | Friend   |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+3 rows in set (0.02 sec)
+
+
+mysql>  SELECT City,COUNT(City) FROM AddressBook GROUP BY City;
++-----------+-------------+
+| City      | COUNT(City) |
++-----------+-------------+
+| New Delhi |           2 |
+| Karnataka |           1 |
++-----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT State,COUNT(State) FROM AddressBook GROUP BY State;
++----------+--------------+
+| State    | COUNT(State) |
++----------+--------------+
+| Delhi    |            2 |
+| Banglore |            1 |
++----------+--------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> SELECT * FROM  AddressBook
+    -> GROUP BY First_Name;
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+| Id | First_Name | Last_Name | Address     | City      | State    | Zip    | Phone_Number | Email                    | Relation |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+|  1 | Raj        | Sahni     | Nihal Vihar | New Delhi | Delhi    | 110041 |   9865658998 | rajsahni845@gmail.com    | Self     |
+|  2 | Sumit      | Ahuja     | Nihal Vihar | New Delhi | Delhi    | 110041 |   8865558998 | sumitahuja6845@gmail.com | Friend   |
+|  3 | SHivam     | Mishra    | Nihal Vihar | Karnataka | Banglore | 110041 |   8965658788 | shivammishra75@gmail.com | Friend   |
++----+------------+-----------+-------------+-----------+----------+--------+--------------+--------------------------+----------+
+3 rows in set (0.00 sec)
